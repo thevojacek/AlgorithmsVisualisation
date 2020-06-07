@@ -1,7 +1,7 @@
 #include "drawing/drawing.h"
 
 int main() {
-    auto drawing_instance = Drawing(800, 450, 20);
+    auto drawing_instance = Drawing(800, 450, 80);
     drawing_instance.draw_loop();
 
     return 0;
