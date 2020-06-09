@@ -1,4 +1,5 @@
 #include "drawing.h"
+#include "components/button.h"
 
 void Drawing::draw_loop() const {
     while(!WindowShouldClose()) {
@@ -17,6 +18,10 @@ void Drawing::draw_loop() const {
             Color color = i % 2 == 0 ? BLACK : BLUE;
             DrawRectangle(pos_x, pos_y, width, height, color);
         }
+
+        // Draw menu
+        components::draw_button(Vector2i {0, 0}, Vector2i {60, 30}, "Button");
+        components::draw_button(Vector2i {65, 0}, Vector2i {60, 30}, "Button");
 
         EndDrawing();
     }

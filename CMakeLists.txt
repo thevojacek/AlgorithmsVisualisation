@@ -8,6 +8,9 @@ set(SOURCE_FILES
     src/drawing/drawing.h
     src/utils/random/random.cpp
     src/utils/random/random.h
+    src/drawing/components/button.cpp
+    src/drawing/components/button.h
+    src/utils/vector_i.h
 )
 
 project(AlgorithmsVisualisation)
