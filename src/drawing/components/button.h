@@ -29,12 +29,12 @@ namespace components {
 
     public:
         // TODO layout system is needed to compute margins between buttons!
+        // TODO solve when mouse is on the button! -> compute button corners and use them for ray-casting?
         // TODO solve click callback
         Button(Vector2i position, string text) {
             this->position = position;
             this->text = std::move(text);
-            // Compute size properties
-            this->compute_sizes();
+            this->compute_sizes(); // Compute size properties
         }
 
     public:
@@ -45,5 +45,8 @@ namespace components {
         void compute_sizes();
     };
 };
+
+// TODO algorithm for determining mouse position in button
+// TODO normalize on "y" axis, note if we can tell it is in boundaries -> then project ray-cast
 
 #endif //ALGORITHMSVISUALISATION_BUTTON_H
