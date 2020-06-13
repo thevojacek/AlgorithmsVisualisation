@@ -32,6 +32,7 @@ namespace components {
         Vector2i position {0, 0};
         Vector2i dimensions {0, 30};
         Vector2i text_position {0, 0};
+        Boundaries boundaries {0, 0, 0, 0};
         string text;
 
     private:
@@ -48,7 +49,6 @@ namespace components {
         // TODO in RayGui library -> render will be performed by layout system :)
         void draw() const;
         void register_callback(function<void(const Button&)> cb);
-        [[nodiscard]] Boundaries boundaries() const;
 
     private:
         void compute_sizes();

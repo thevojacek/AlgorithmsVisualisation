@@ -59,7 +59,7 @@ void Drawing::handle_left_mouse_click_event() const {
     const auto pointer_pos = pointer::get_pointer_position();
 
     for (const auto& button : *this->buttons) {
-        const auto boundaries = button.boundaries();
+        const auto boundaries = button.boundaries;
         if (pointer_pos.x >= boundaries.min_x && pointer_pos.x <= boundaries.max_x) {
             if (pointer_pos.y >= boundaries.min_y && pointer_pos.y <= boundaries.max_y) {
                 if (button.callback != nullptr) button.callback(button);
