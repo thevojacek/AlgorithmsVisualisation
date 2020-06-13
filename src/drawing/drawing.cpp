@@ -10,9 +10,10 @@ static vector<Button> buttons = vector<Button>();
 
 void Drawing::draw_loop() const {
     // Prepare buttons
-    buttons.reserve(2);
+    buttons.reserve(3);
     buttons.emplace_back(Vector2i {5, 5}, "Bubble Sort");
     buttons.emplace_back(Vector2i {100, 5}, "Quick Sort");
+    buttons.emplace_back(Vector2i {188, 5}, "Shaker Sort");
 
     // Set max height for rendered columns
     const int max_height = this->screen_height - 50;
