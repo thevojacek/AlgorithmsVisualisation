@@ -5,7 +5,11 @@
 #include <memory>
 #include <vector>
 #include <iostream>
+#include "./components/button.h"
 #include "../utils/random/random.h"
+
+using components::Button;
+using std::vector;
 
 class Drawing {
 
@@ -15,28 +19,17 @@ private:
     int screen_height;
 
 public:
-    std::unique_ptr<std::vector<int>> values = std::make_unique<std::vector<int>>();
+    std::unique_ptr<vector<int>> values = std::make_unique<vector<int>>();
+    std::unique_ptr<vector<Button>> buttons = std::make_unique<vector<Button>>();
 
 public:
-    Drawing(int screen_width, int screen_height, int elements_count) {
-        this->screen_width = screen_width;
-        this->screen_height = screen_height;
-        this->elements_count = elements_count;
-
-        // Get function with own distribution to generate random numbers
-        auto get_random_number = random_utils::get_int_function(10);
-
-        // Fill-in values array with random values
-        values->reserve(this->elements_count);
-        for (int i = 0; i < this->elements_count; i++)
-            values->push_back(get_random_number());
-
-        InitWindow(screen_width, screen_height, "Algorithms Visualisation");
-        SetTargetFPS(60); // TODO lower FPS when screen is not active (lower to +- 30) for smaller CPU usage
-    }
+    Drawing(int screen_width, int screen_height, int elements_count);
 
 public:
     void draw_loop() const;
+
+private:
+    void handle_left_mouse_click_event() const;
 };
 
 

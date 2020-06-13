@@ -11,6 +11,8 @@ set(SOURCE_FILES
     src/drawing/components/button.cpp
     src/drawing/components/button.h
     src/utils/vector_i.h
+    src/utils/pointer/pointer.cpp
+    src/utils/pointer/pointer.h
 )
 
 project(AlgorithmsVisualisation)

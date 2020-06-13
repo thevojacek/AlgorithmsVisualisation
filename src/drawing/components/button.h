@@ -5,10 +5,12 @@
 #include <string>
 #include <utility>
 #include <cmath>
+#include <functional>
 #include "../../utils/vector_i.h"
 
 using types::Vector2i;
 using std::string;
+using std::function;
 
 static const auto bg_color = GRAY;
 static const auto text_color = WHITE;
@@ -17,8 +19,16 @@ static const int font_size = 12;
 static const int character_width = (int)std::round(font_size * 0.58f);
 
 namespace components {
+    typedef struct Boundaries {
+        int min_x;
+        int max_x;
+        int min_y;
+        int max_y;
+    } Corners;
+
     class Button {
     public:
+        function<void(const Button&)> callback = nullptr;
         Vector2i position {0, 0};
         Vector2i dimensions {0, 30};
         Vector2i text_position {0, 0};
@@ -28,9 +38,6 @@ namespace components {
         int text_width = 0;
 
     public:
-        // TODO layout system is needed to compute margins between buttons!
-        // TODO solve when mouse is on the button! -> compute button corners and use them for ray-casting?
-        // TODO solve click callback
         Button(Vector2i position, string text) {
             this->position = position;
             this->text = std::move(text);
@@ -40,13 +47,12 @@ namespace components {
     public:
         // TODO in RayGui library -> render will be performed by layout system :)
         void draw() const;
+        void register_callback(function<void(const Button&)> cb);
+        [[nodiscard]] Boundaries boundaries() const;
 
     private:
         void compute_sizes();
     };
 };
-
-// TODO algorithm for determining mouse position in button
-// TODO normalize on "y" axis, note if we can tell it is in boundaries -> then project ray-cast
 
 #endif //ALGORITHMSVISUALISATION_BUTTON_H
