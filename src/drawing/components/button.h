@@ -38,15 +38,12 @@ namespace components {
         }
 
     public:
+        // TODO in RayGui library -> render will be performed by layout system :)
         void draw() const;
 
     private:
         void compute_sizes();
     };
 };
-
-//  7 = x
-// 12 = 100
-// (7 / 12 * 100) = 58%
 
 #endif //ALGORITHMSVISUALISATION_BUTTON_H
