@@ -3,6 +3,7 @@
 #include "../utils/pointer/pointer.h"
 #include "../showcase/showcase.h"
 #include "../algorithms/bubble_sort.h"
+#include "../algorithms/quick_sort.h"
 
 void Drawing::draw_loop() const {
     if (!this->initialized) return;
@@ -18,8 +19,8 @@ void Drawing::draw_loop() const {
         showcase::algorithm(bubble_sort(), this->elements_count);
     });
 
-    buttons_ptr->at(1).register_callback([](const Button& button){
-        std::cout << "Callback invoked at button " + button.text + "!" << std::endl;
+    buttons_ptr->at(1).register_callback([this](const Button& button){
+        showcase::algorithm(quick_sort(), this->elements_count);
     });
 
     buttons_ptr->at(2).register_callback([](const Button& button){
@@ -38,6 +39,8 @@ void Drawing::draw_loop() const {
             const int size = this->values_ptr->size();
             const int width = this->screen_width / size;
 
+            // TODO implement red color highlight using array copying?
+            // TODO or think of some other more efficient solution
             for (int i = 0; i < size; i++) {
                 const int value = this->values_ptr->at(i);
                 const int height = (int)((float)max_height * ((float)value / 10.0f));

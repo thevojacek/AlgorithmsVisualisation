@@ -19,6 +19,8 @@ set(SOURCE_FILES
     src/algorithms/bubble_sort.h
     src/utils/thread/thread.cpp
     src/utils/thread/thread.h
+    src/algorithms/quick_sort.cpp
+    src/algorithms/quick_sort.h
 )
 
 project(AlgorithmsVisualisation)
