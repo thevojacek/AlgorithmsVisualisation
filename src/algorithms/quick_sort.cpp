@@ -1,7 +1,7 @@
 #include "quick_sort.h"
 #include "../utils/thread/thread.h"
 
-void qsort(vector<int>* array, const int left, const int right);
+void qsort(vector<int>* array, int left, int right);
 
 AlgorithmFunction quick_sort() {
     return [](vector<int>* array){
