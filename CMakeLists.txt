@@ -13,6 +13,12 @@ set(SOURCE_FILES
     src/utils/vector_i.h
     src/utils/pointer/pointer.cpp
     src/utils/pointer/pointer.h
+    src/showcase/showcase.cpp
+    src/showcase/showcase.h
+    src/algorithms/bubble_sort.cpp
+    src/algorithms/bubble_sort.h
+    src/utils/thread/thread.cpp
+    src/utils/thread/thread.h
 )
 
 project(AlgorithmsVisualisation)

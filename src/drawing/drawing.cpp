@@ -1,8 +1,12 @@
 #include "drawing.h"
 #include <iostream>
 #include "../utils/pointer/pointer.h"
+#include "../showcase/showcase.h"
+#include "../algorithms/bubble_sort.h"
 
 void Drawing::draw_loop() const {
+    if (!this->initialized) return;
+
     // Prepare buttons
     auto buttons_ptr = buttons.get();
     buttons_ptr->reserve(3);
@@ -10,8 +14,8 @@ void Drawing::draw_loop() const {
     buttons_ptr->emplace_back(Vector2i {100, 5}, "Quick Sort");
     buttons_ptr->emplace_back(Vector2i {188, 5}, "Shaker Sort");
 
-    buttons_ptr->at(0).register_callback([](const Button& button){
-        std::cout << "Callback invoked at button " + button.text + "!" << std::endl;
+    buttons_ptr->at(0).register_callback([this](const Button& button) {
+        showcase::algorithm(bubble_sort(), this->elements_count);
     });
 
     buttons_ptr->at(1).register_callback([](const Button& button){
@@ -30,16 +34,18 @@ void Drawing::draw_loop() const {
         ClearBackground(RAYWHITE);
 
         // Draw array of values
-        const auto array = *values; // Pointer dereference is safe as long as "array" stays "const"
-        const int size = values->size();
-        const int width = this->screen_width / size;
+        if (this->values_ptr != nullptr) {
+            const int size = this->values_ptr->size();
+            const int width = this->screen_width / size;
 
-        for (int i = 0; i < size; i++) {
-            const int height = (int)((float)max_height * ((float)array[i] / 10.0f));
-            const int pos_x = i * width;
-            const int pos_y = this->screen_height - height;
-            Color color = i % 2 == 0 ? BLACK : BLUE;
-            DrawRectangle(pos_x, pos_y, width, height, color);
+            for (int i = 0; i < size; i++) {
+                const int value = this->values_ptr->at(i);
+                const int height = (int)((float)max_height * ((float)value / 10.0f));
+                const int pos_x = i * width;
+                const int pos_y = this->screen_height - height;
+                Color color = i % 2 == 0 ? BLACK : BLUE;
+                DrawRectangle(pos_x, pos_y, width, height, color);
+            }
         }
 
         // Draw menu
@@ -69,19 +75,30 @@ void Drawing::handle_left_mouse_click_event() const {
     }
 }
 
-Drawing::Drawing(int screen_width, int screen_height, int elements_count) {
-    this->screen_width = screen_width;
-    this->screen_height = screen_height;
-    this->elements_count = elements_count;
+void Drawing::init(int width, int height, int elements) {
+    if (this->initialized) return;
+
+    this->screen_width = width;
+    this->screen_height = height;
+    this->elements_count = elements;
 
     // Get function with own distribution to generate random numbers
     auto get_random_number = random_utils::get_int_function(10);
 
-    // Fill-in values array with random values
-    values->reserve(this->elements_count);
-    for (int i = 0; i < this->elements_count; i++)
-        values->push_back(get_random_number());
-
     InitWindow(screen_width, screen_height, "Algorithms Visualisation");
     SetTargetFPS(60); // TODO lower FPS when screen is not active (lower to +- 30) for smaller CPU usage
+
+    this->initialized = true;
+}
+
+void Drawing::set_values_ptr(vector<int> *pointer) {
+    this->unset_values_ptr();
+    this->values_ptr = pointer;
+}
+
+void Drawing::unset_values_ptr() {
+    if (this->values_ptr != nullptr) {
+        free(this->values_ptr);
+        this->values_ptr = nullptr;
+    }
 }
