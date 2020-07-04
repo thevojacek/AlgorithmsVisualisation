@@ -23,6 +23,8 @@ set(SOURCE_FILES
     src/algorithms/quick_sort.h
     src/algorithms/shaker_sort.cpp
     src/algorithms/shaker_sort.h
+    src/algorithms/insertion_sort.cpp
+    src/algorithms/insertion_sort.h
 )
 
 project(AlgorithmsVisualisation)

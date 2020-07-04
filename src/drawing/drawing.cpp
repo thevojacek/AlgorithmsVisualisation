@@ -4,16 +4,18 @@
 #include "../algorithms/bubble_sort.h"
 #include "../algorithms/quick_sort.h"
 #include "../algorithms/shaker_sort.h"
+#include "../algorithms/insertion_sort.h"
 
 void Drawing::draw_loop() const {
     if (!this->initialized) return;
 
     // Prepare buttons
     auto buttons_ptr = buttons.get();
-    buttons_ptr->reserve(3);
+    buttons_ptr->reserve(4);
     buttons_ptr->emplace_back(Vector2i {5, 5}, "Bubble Sort");
     buttons_ptr->emplace_back(Vector2i {100, 5}, "Quick Sort");
     buttons_ptr->emplace_back(Vector2i {188, 5}, "Shaker Sort");
+    buttons_ptr->emplace_back(Vector2i {283, 5}, "Insertion Sort");
 
     buttons_ptr->at(0).register_callback([this](const Button& button) {
         showcase::algorithm(bubble_sort(), this->elements_count);
@@ -25,6 +27,10 @@ void Drawing::draw_loop() const {
 
     buttons_ptr->at(2).register_callback([this](const Button& button){
         showcase::algorithm(shaker_sort(), this->elements_count);
+    });
+
+    buttons_ptr->at(3).register_callback([this](const Button& button){
+        showcase::algorithm(insertion_sort(), this->elements_count);
     });
 
     // Set max height for rendered columns
