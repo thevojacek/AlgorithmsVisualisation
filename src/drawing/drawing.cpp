@@ -1,9 +1,9 @@
 #include "drawing.h"
-#include <iostream>
 #include "../utils/pointer/pointer.h"
 #include "../showcase/showcase.h"
 #include "../algorithms/bubble_sort.h"
 #include "../algorithms/quick_sort.h"
+#include "../algorithms/shaker_sort.h"
 
 void Drawing::draw_loop() const {
     if (!this->initialized) return;
@@ -23,8 +23,8 @@ void Drawing::draw_loop() const {
         showcase::algorithm(quick_sort(), this->elements_count);
     });
 
-    buttons_ptr->at(2).register_callback([](const Button& button){
-        std::cout << "Callback invoked at button " + button.text + "!" << std::endl;
+    buttons_ptr->at(2).register_callback([this](const Button& button){
+        showcase::algorithm(shaker_sort(), this->elements_count);
     });
 
     // Set max height for rendered columns

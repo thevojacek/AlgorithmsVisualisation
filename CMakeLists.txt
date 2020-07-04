@@ -21,6 +21,8 @@ set(SOURCE_FILES
     src/utils/thread/thread.h
     src/algorithms/quick_sort.cpp
     src/algorithms/quick_sort.h
+    src/algorithms/shaker_sort.cpp
+    src/algorithms/shaker_sort.h
 )
 
 project(AlgorithmsVisualisation)
