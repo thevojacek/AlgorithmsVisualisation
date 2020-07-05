@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 #include <iostream>
+#include <ctime>
 #include "./components/button.h"
 #include "./components/message.h"
 #include "../utils/random/random.h"
@@ -14,6 +15,9 @@ using components::Message;
 using std::vector;
 using std::unique_ptr;
 using std::make_unique;
+using std::time_t;
+using std::time;
+using std::mktime;
 
 class Drawing {
 private:
@@ -29,6 +33,7 @@ public:
     vector<int>* values_ptr = nullptr;
     unique_ptr<vector<Button>> buttons = make_unique<vector<Button>>();
     unique_ptr<Message> message = nullptr;
+    time_t remove_message = time(nullptr);
 
 public:
     // for singleton pattern safety
@@ -47,7 +52,7 @@ public:
 
 public:
     void init(int screen_width, int screen_height, int elements_count);
-    void draw_loop() const;
+    void draw_loop();
     void set_values_ptr(vector<int>* pointer);
     void unset_values_ptr();
     void display_message(const string& text);

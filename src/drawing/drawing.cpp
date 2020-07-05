@@ -7,7 +7,7 @@
 #include "../algorithms/insertion_sort.h"
 #include "../algorithms/merge_sort.h"
 
-void Drawing::draw_loop() const {
+void Drawing::draw_loop() {
     if (!this->initialized) return;
 
     // Prepare buttons
@@ -67,7 +67,10 @@ void Drawing::draw_loop() const {
         for (const auto& button : *buttons_ptr) button.draw();
 
         // Draw message
-        if (this->message != nullptr) this->message->draw();
+        if (this->message != nullptr) {
+            if (time(nullptr) > this->remove_message) this->unset_message_ptr();
+            else this->message->draw();
+        }
 
         // Left mouse button click handling
         if (IsMouseButtonPressed(0))
@@ -123,6 +126,13 @@ void Drawing::unset_values_ptr() {
 
 void Drawing::display_message(const string& text) {
     this->unset_message_ptr();
+
+    // Sets time to remove message to 5 seconds in the future
+    auto t = time(nullptr);
+    auto ts = localtime(&t);
+    ts->tm_sec = ts->tm_sec + 5;
+    this->remove_message = mktime(ts);
+
     this->message = make_unique<Message>(
         Vector2i {0, this->screen_height - 30},
         Vector2i {this->screen_width, 30},
