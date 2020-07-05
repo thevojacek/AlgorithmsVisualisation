@@ -12,8 +12,9 @@ static auto RUNNING = false;
 static mutex mtx;
 
 void showcase::algorithm(const showcase::AlgorithmFunction& algorithm, const int elements_count) {
-    if (RUNNING)
-        return; // TODO display warning message from here
+    if (RUNNING) {
+        return Drawing::instance().display_message("Another algorithm is already running!");
+    }
 
     RUNNING = true;
 

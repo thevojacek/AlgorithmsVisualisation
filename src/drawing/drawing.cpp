@@ -66,6 +66,9 @@ void Drawing::draw_loop() const {
         // Draw menu
         for (const auto& button : *buttons_ptr) button.draw();
 
+        // Draw message
+        if (this->message != nullptr) this->message->draw();
+
         // Left mouse button click handling
         if (IsMouseButtonPressed(0))
             this->handle_left_mouse_click_event();
@@ -115,5 +118,21 @@ void Drawing::unset_values_ptr() {
     if (this->values_ptr != nullptr) {
         free(this->values_ptr);
         this->values_ptr = nullptr;
+    }
+}
+
+void Drawing::display_message(const string& text) {
+    this->unset_message_ptr();
+    this->message = make_unique<Message>(
+        Vector2i {0, this->screen_height - 30},
+        Vector2i {this->screen_width, 30},
+        text
+    );
+}
+
+void Drawing::unset_message_ptr() {
+    if (this->message != nullptr) {
+        free(this->message.release());
+        this->message = nullptr;
     }
 }

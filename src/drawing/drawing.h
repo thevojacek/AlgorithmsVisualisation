@@ -6,9 +6,11 @@
 #include <vector>
 #include <iostream>
 #include "./components/button.h"
+#include "./components/message.h"
 #include "../utils/random/random.h"
 
 using components::Button;
+using components::Message;
 using std::vector;
 using std::unique_ptr;
 using std::make_unique;
@@ -26,6 +28,7 @@ private:
 public:
     vector<int>* values_ptr = nullptr;
     unique_ptr<vector<Button>> buttons = make_unique<vector<Button>>();
+    unique_ptr<Message> message = nullptr;
 
 public:
     // for singleton pattern safety
@@ -47,9 +50,11 @@ public:
     void draw_loop() const;
     void set_values_ptr(vector<int>* pointer);
     void unset_values_ptr();
+    void display_message(const string& text);
 
 private:
     void handle_left_mouse_click_event() const;
+    void unset_message_ptr();
 };
 
 

@@ -27,6 +27,9 @@ set(SOURCE_FILES
     src/algorithms/insertion_sort.h
     src/algorithms/merge_sort.cpp
     src/algorithms/merge_sort.h
+    src/drawing/components/boundaries.h
+    src/drawing/components/message.cpp
+    src/drawing/components/message.h
 )
 
 project(AlgorithmsVisualisation)
