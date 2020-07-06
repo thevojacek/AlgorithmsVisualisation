@@ -7,7 +7,10 @@
 #include "../algorithms/insertion_sort.h"
 #include "../algorithms/merge_sort.h"
 
+static const int window_fps = 60;
+static bool window_low_fps = false;
 static bool window_focused = false;
+static time_t window_last_focused;
 
 void Drawing::draw_loop() {
     if (!this->initialized) return;
@@ -111,7 +114,7 @@ void Drawing::init(int width, int height, int elements) {
     auto get_random_number = random_utils::get_int_function(10);
 
     InitWindow(screen_width, screen_height, "Algorithms Visualisation");
-    SetTargetFPS(60);
+    SetTargetFPS(window_fps);
 
     this->initialized = true;
 }
@@ -153,10 +156,21 @@ void Drawing::unset_message_ptr() {
 
 void Drawing::set_window_fps() {
     if (!window_focused && IsWindowFocused()) {
+        window_last_focused = time(nullptr);
         window_focused = true;
-        SetTargetFPS(60);
+        window_low_fps = false;
+        SetTargetFPS(window_fps);
     } else if (window_focused && !IsWindowFocused()) {
         window_focused = false;
-        SetTargetFPS(30);
+        window_low_fps = false;
+        SetTargetFPS(window_fps / 2);
+    }
+
+    if (!window_low_fps
+        && !IsWindowFocused()
+        && (time(nullptr) - window_last_focused) > 10
+    ) {
+        window_low_fps = true;
+        SetTargetFPS(window_fps / 10);
     }
 }
