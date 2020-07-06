@@ -30,6 +30,7 @@ set(SOURCE_FILES
     src/drawing/components/boundaries.h
     src/drawing/components/message.cpp
     src/drawing/components/message.h
+    src/drawing/components/component.h
 )
 
 project(AlgorithmsVisualisation)

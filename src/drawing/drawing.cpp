@@ -54,8 +54,7 @@ void Drawing::draw_loop() {
             // TODO implement red color highlight using array copying?
             // TODO or think of some other more efficient solution
             for (int i = 0; i < size; i++) {
-                const int value = this->values_ptr->at(i);
-                const int height = (int)((float)max_height * ((float)value / 10.0f));
+                const int height = (int)((float)max_height * ((float)this->values_ptr->at(i) / 10.0f));
                 const int pos_x = i * width;
                 const int pos_y = this->screen_height - height;
                 Color color = i % 2 == 0 ? BLACK : BLUE;
@@ -87,6 +86,7 @@ void Drawing::handle_left_mouse_click_event() const {
 
     for (const auto& button : *this->buttons) {
         const auto boundaries = button.boundaries;
+
         if (pointer_pos.x >= boundaries.min_x && pointer_pos.x <= boundaries.max_x) {
             if (pointer_pos.y >= boundaries.min_y && pointer_pos.y <= boundaries.max_y) {
                 if (button.callback != nullptr) button.callback(button);

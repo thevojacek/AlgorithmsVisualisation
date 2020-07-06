@@ -8,7 +8,7 @@ void components::Button::draw() const {
         position.y,
         dimensions.x,
         dimensions.y,
-        bg_color
+        GRAY
     );
 
     DrawText(
@@ -16,13 +16,12 @@ void components::Button::draw() const {
         text_position.x,
         text_position.y,
         font_size,
-        text_color
+        WHITE
     );
 }
 
 void components::Button::compute_sizes() {
-    // TODO fix precisely text width computation and text position (perhaps per word?)
-    text_width = (int)(character_width * text.length());
+    text_width = Component::compute_text_width(text.length());
     dimensions.x = text_width + 12; // Margin 5 from both sides
     int max_x = position.x + dimensions.x;
     int max_y = position.y + dimensions.y;
