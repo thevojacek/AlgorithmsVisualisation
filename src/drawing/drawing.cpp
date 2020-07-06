@@ -7,6 +7,8 @@
 #include "../algorithms/insertion_sort.h"
 #include "../algorithms/merge_sort.h"
 
+static bool window_focused = false;
+
 void Drawing::draw_loop() {
     if (!this->initialized) return;
 
@@ -43,6 +45,8 @@ void Drawing::draw_loop() {
     const int max_height = this->screen_height - 50;
 
     while (!WindowShouldClose()) {
+        Drawing::set_window_fps();
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
@@ -107,7 +111,7 @@ void Drawing::init(int width, int height, int elements) {
     auto get_random_number = random_utils::get_int_function(10);
 
     InitWindow(screen_width, screen_height, "Algorithms Visualisation");
-    SetTargetFPS(60); // TODO lower FPS when screen is not active (lower to +- 30) for smaller CPU usage
+    SetTargetFPS(60);
 
     this->initialized = true;
 }
@@ -144,5 +148,15 @@ void Drawing::unset_message_ptr() {
     if (this->message != nullptr) {
         free(this->message.release());
         this->message = nullptr;
+    }
+}
+
+void Drawing::set_window_fps() {
+    if (!window_focused && IsWindowFocused()) {
+        window_focused = true;
+        SetTargetFPS(60);
+    } else if (window_focused && !IsWindowFocused()) {
+        window_focused = false;
+        SetTargetFPS(30);
     }
 }

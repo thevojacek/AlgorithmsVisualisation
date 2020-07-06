@@ -60,6 +60,7 @@ public:
 private:
     void handle_left_mouse_click_event() const;
     void unset_message_ptr();
+    static void set_window_fps();
 };
 
 
