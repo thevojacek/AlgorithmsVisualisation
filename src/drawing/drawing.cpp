@@ -135,10 +135,7 @@ void Drawing::display_message(const string& text) {
     this->unset_message_ptr();
 
     // Sets time to remove message to 5 seconds in the future
-    auto t = time(nullptr);
-    auto ts = localtime(&t);
-    ts->tm_sec = ts->tm_sec + 5;
-    this->remove_message = mktime(ts);
+    this->remove_message = time(nullptr) + 5;
 
     this->message = make_unique<Message>(
         Vector2i {0, this->screen_height - 30},
