@@ -12,6 +12,10 @@ static bool window_low_fps = false;
 static bool window_focused = false;
 static time_t window_last_focused;
 
+bool isWindowFocused() {
+    return !IsWindowMinimized();
+}
+
 void Drawing::draw_loop() {
     if (!this->initialized) return;
 
@@ -152,19 +156,19 @@ void Drawing::unset_message_ptr() {
 }
 
 void Drawing::set_window_fps() {
-    if (!window_focused && IsWindowFocused()) {
+    if (!window_focused && isWindowFocused()) {
         window_last_focused = time(nullptr);
         window_focused = true;
         window_low_fps = false;
         SetTargetFPS(window_fps);
-    } else if (window_focused && !IsWindowFocused()) {
+    } else if (window_focused && !isWindowFocused()) {
         window_focused = false;
         window_low_fps = false;
         SetTargetFPS(window_fps / 2);
     }
 
     if (!window_low_fps
-        && !IsWindowFocused()
+        && !isWindowFocused()
         && (time(nullptr) - window_last_focused) > 10
     ) {
         window_low_fps = true;

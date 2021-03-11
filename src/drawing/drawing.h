@@ -49,8 +49,6 @@ public:
     }
 
 public:
-
-public:
     void init(int screen_width, int screen_height, int elements_count);
     void draw_loop();
     void set_values_ptr(vector<int>* pointer);
