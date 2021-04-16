@@ -8,6 +8,9 @@ set(CMAKE_C_STANDARD 11)
 # Try to quietly find rayLib
 find_package(raylib 3.0 QUIET)
 
+set(SUPPORT_TRACELOG OFF)
+set(LOG_DEBUG OFF)
+
 # Download rayLib as dependency if not installed
 if (NOT raylib_FOUND)
     include(FetchContent)
@@ -65,6 +68,9 @@ set(SOURCE_FILES
     src/drawing/components/message.h
     src/drawing/components/component.h
 )
+
+# Uncomment this for release build, it will build an executable as an app (no terminal window spawning)
+#set(CMAKE_MACOSX_BUNDLE ON)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME} raylib)
